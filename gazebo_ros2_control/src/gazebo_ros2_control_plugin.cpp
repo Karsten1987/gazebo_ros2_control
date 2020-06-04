@@ -573,7 +573,7 @@ std::string GazeboRosControlPrivate::getURDF(std::string param_name) const
 // Get Transmissions from the URDF
 bool GazeboRosControlPrivate::parseTransmissionsFromURDF(const std::string & urdf_string)
 {
-  transmission_interface::TransmissionParser::parse(urdf_string, transmissions_);
+  transmissions_ = transmission_interface::parse_transmissions_from_urdf(urdf_string);
   return true;
 }
 

@@ -89,11 +89,11 @@ bool DefaultRobotHWSim::initSim(
   for (unsigned int j = 0; j < n_dof_; j++) {
     // Check that this transmission has one joint
     if (transmissions[j].joints_.empty()) {
-      std::cerr << "Transmission " << transmissions[j].name_ <<
+      std::cerr << "Transmission " << transmissions[j].joint_name <<
         " has no associated joints.";
       continue;
     } else if (transmissions[j].joints_.size() > 1) {
-      std::cerr << "Transmission " << transmissions[j].name_ <<
+      std::cerr << "Transmission " << transmissions[j].joint_name <<
         " has more than one joint. Currently the default robot hardware simulation " <<
         " interface only supports one.";
       continue;
@@ -107,20 +107,20 @@ bool DefaultRobotHWSim::initSim(
       // TODO(anyone): Deprecate HW interface specification in actuators in ROS J
       joint_interfaces = transmissions[j].actuators_[0].hardware_interfaces_;
       std::cerr << "The <hardware_interface> element of tranmission " <<
-        transmissions[j].name_ <<
+        transmissions[j].joint_name <<
         " should be nested inside the <joint> element, not <actuator>. " <<
         "The transmission will be properly loaded, but please update " <<
         "your robot model to remain compatible with future versions of the plugin.";
     }
     if (joint_interfaces.empty()) {
-      std::cerr << "Joint " << transmissions[j].name_ <<
-        " of transmission " << transmissions[j].name_ <<
+      std::cerr << "Joint " << transmissions[j].joint_name <<
+        " of transmission " << transmissions[j].joint_name <<
         " does not specify any hardware interface. " <<
         "Not adding it to the robot hardware simulation.";
       continue;
     } else if (joint_interfaces.size() > 1) {
-      std::cerr << "Joint " << transmissions[j].name_ <<
-        " of transmission " << transmissions[j].name_ <<
+      std::cerr << "Joint " << transmissions[j].joint_name <<
+        " of transmission " << transmissions[j].joint_name <<
         " specifies multiple hardware interfaces. " <<
         "Currently the default robot hardware simulation interface only supports one. "
         "Using the first entry";
@@ -128,7 +128,7 @@ bool DefaultRobotHWSim::initSim(
     }
 
     // Add data from transmission
-    joint_names_[j] = transmissions[j].joints_[0].name_;
+    joint_names_[j] = transmissions[j].joints_[0].joint_name;
     joint_position_[j] = 1.0;
     joint_velocity_[j] = 0.0;
     joint_effort_[j] = 1.0;  // N/m for continuous joints
