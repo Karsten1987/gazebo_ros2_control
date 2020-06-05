@@ -38,9 +38,7 @@
 #include <vector>
 
 // ros_control
-#if 0  // @todo
 #include <control_toolbox/pid.hpp>
-#endif
 #if 0  // @todo
 #include <hardware_interface/joint_command_interface.hpp>
 #include <hardware_interface/robot_hw.hpp>
@@ -125,9 +123,7 @@ protected:
   std::vector<double> joint_effort_limits_;
   std::vector<double> joint_vel_limits_;
   std::vector<ControlMethod> joint_control_methods_;
-#if 0
   std::vector<control_toolbox::Pid> pid_controllers_;
-#endif
   std::vector<double> joint_position_;
   std::vector<double> joint_velocity_;
   std::vector<double> joint_effort_;
