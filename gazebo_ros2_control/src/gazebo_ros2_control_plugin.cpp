@@ -544,18 +544,18 @@ std::string GazeboRosControlPrivate::getURDF(std::string param_name) const
       RCLCPP_ERROR(
         rclcpp::get_logger(
           "gazebo_ros2_control"), "Interrupted while waiting for %s service. Exiting.",
-        robot_description_node_);
+        robot_description_node_.c_str());
       return 0;
     }
     RCLCPP_ERROR(
       rclcpp::get_logger(
         "gazebo_ros2_control"), "%s service not available, waiting again...",
-      robot_description_node_);
+      robot_description_node_.c_str());
   }
 
   RCLCPP_ERROR(
     rclcpp::get_logger(
-      "gazebo_ros2_control"), "connected to service!! %s", robot_description_node_);
+      "gazebo_ros2_control"), "connected to service!! %s", robot_description_node_.c_str());
 
   // search and wait for robot_description on param server
   while (urdf_string.empty()) {

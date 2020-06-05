@@ -62,9 +62,7 @@ bool DefaultRobotHWSim::initSim(
   joint_effort_limits_.resize(n_dof_);
   joint_vel_limits_.resize(n_dof_);
   joint_control_methods_.resize(n_dof_);
-#if 0
   pid_controllers_.resize(n_dof_);
-#endif
   joint_position_.resize(n_dof_);
   joint_velocity_.resize(n_dof_);
   joint_effort_.resize(n_dof_);
@@ -87,6 +85,11 @@ bool DefaultRobotHWSim::initSim(
 
   // Initialize values
   for (unsigned int j = 0; j < n_dof_; j++) {
+
+    pid_controllers_[j].initPid(6.0, 1.0, 2.0, 0.3, -0.3,
+        false, joint_limit_nh->get_node_parameters_interface());
+    pid_controllers_[j].initPublisher(joint_limit_nh);
+
     // Check that this transmission has one joint
     if (transmissions[j].joints_.empty()) {
       std::cerr << "Transmission " << transmissions[j].name_ <<
